@@ -45,4 +45,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Un usuario pertenece a un rol
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    // Un usuario puede tener muchos cursos (si es profesor)
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
+    }
+
+    // Un usuario puede tener muchas entregas de tareas (si es estudiante)
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class, 'student_id');
+    }
+
+    // Un usuario puede tener muchos progresos
+    public function progress()
+    {
+        return $this->hasMany(Progress::class, 'student_id');
+    }
 }
