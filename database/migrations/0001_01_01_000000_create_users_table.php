@@ -13,20 +13,28 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name');  // Nombre del usuario
+            $table->string('email')->unique();  // Correo electrónico único
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password');  // Contraseña
             $table->rememberToken();
             $table->timestamps();
+
+            // Agregar columna de rol (relación con la tabla roles)
+            $table->foreignId('role_id')->constrained('roles');  // Relación con la tabla roles
+
+            // Agregar ID de Google Classroom
+            $table->string('google_classroom_id');  // ID de Google Classroom
         });
 
+        // Crear la tabla de tokens de restablecimiento de contraseñas
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+        // Crear la tabla de sesiones
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
