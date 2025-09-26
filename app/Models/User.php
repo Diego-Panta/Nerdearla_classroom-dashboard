@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'google_classroom_id',
     ];
 
     /**
@@ -68,5 +70,23 @@ class User extends Authenticatable
     public function progress()
     {
         return $this->hasMany(Progress::class, 'student_id');
+    }
+
+    // Método para verificar si el usuario es Estudiante
+    public function isStudent()
+    {
+        return $this->role->name === 'Estudiante';
+    }
+
+    // Método para verificar si el usuario es Profesor
+    public function isTeacher()
+    {
+        return $this->role->name === 'Profesor';
+    }
+
+    // Método para verificar si el usuario es Coordinador
+    public function isCoordinator()
+    {
+        return $this->role->name === 'Coordinador';
     }
 }

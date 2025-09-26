@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained('roles');  // Relación con la tabla roles
 
             // Agregar ID de Google Classroom
-            $table->string('google_classroom_id');  // ID de Google Classroom
+            $table->string('google_classroom_id')->nullable(); ;  // ID de Google Classroom
         });
 
         // Crear la tabla de tokens de restablecimiento de contraseñas
